@@ -36,7 +36,7 @@ public class AnimalService {
     }
 
     public AnimalDto getAnimalToDto(User user, Long animalId) {
-        Animal animal = animalRepository.findByIdAndOwner(animalId, user).orElseThrow(()-> new AnimalError("There is no pet with this number"));
+        Animal animal = animalRepository.findByIdAndOwner(animalId, user).orElseThrow(() -> new AnimalError("There is no pet with this number"));
 
         return toDto(animal);
     }
@@ -50,7 +50,7 @@ public class AnimalService {
         return animalsDto;
     }
 
-    private AnimalDto toDto(Animal animal){
+    private AnimalDto toDto(Animal animal) {
         AnimalDto dto = new AnimalDto();
         dto.setBirthday(animal.getBirthday());
         dto.setGender(animal.getGender());

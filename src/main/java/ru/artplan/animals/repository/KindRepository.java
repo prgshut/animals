@@ -7,5 +7,5 @@ import java.util.Optional;
 
 public interface KindRepository extends JpaRepository<Kind, Long> {
 
-    public Optional<Kind> findByName(String kind);
+    Optional<Kind> findByName(String kind);
 }

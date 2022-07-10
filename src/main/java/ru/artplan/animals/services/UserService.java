@@ -18,7 +18,7 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public void saveUserFromDtoAsEntity(UserRegistrationDto userDto){
+    public void saveUserFromDtoAsEntity(UserRegistrationDto userDto) {
         User user = new User();
         user.setUser(userDto.getUserName());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
@@ -26,11 +26,11 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public Optional<User> findByUser(String user){
+    public Optional<User> findByUser(String user) {
         return userRepository.findByUser(user);
     }
 
-    public List<User> findAll(){
+    public List<User> findAll() {
         return userRepository.findAll();
     }
 }

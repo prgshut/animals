@@ -1,7 +1,6 @@
 package ru.artplan.animals.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,7 +15,7 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
-        @RequestMapping("/api/v1/animals")
+@RequestMapping("/api/v1/animals")
 public class AnimalController {
     @Autowired
     private AnimalService animalService;
@@ -24,18 +23,18 @@ public class AnimalController {
     private UserService userService;
 
     @PostMapping("/add")
-    public ResponseEntity<?> addAnimal(@RequestBody AnimalDto dto, Principal principal){
+    public ResponseEntity<?> addAnimal(@RequestBody AnimalDto dto, Principal principal) {
         try {
             User user = userService.findByUser(principal.getName()).orElseThrow(() -> new UsernameNotFoundException("User doesn't exists"));
             animalService.addAnimal(dto, user);
-            return  ResponseEntity.ok(HttpStatus.CREATED);
-        }catch (AnimalError e){
+            return ResponseEntity.ok(HttpStatus.CREATED);
+        } catch (AnimalError e) {
             return new ResponseEntity<>(new AnimalError("he type of animal is unknown, it was not possible to add a pet"), HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AnimalDto> getAnimal(@PathVariable (value = "id") String animalId, Principal principal){
+    public ResponseEntity<AnimalDto> getAnimal(@PathVariable(value = "id") String animalId, Principal principal) {
         Long id = Long.parseLong(animalId);
         User user = userService.findByUser(principal.getName()).orElseThrow(() -> new UsernameNotFoundException("User doesn't exists"));
         return ResponseEntity.ok(animalService.getAnimalToDto(user, id));

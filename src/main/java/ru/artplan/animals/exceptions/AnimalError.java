@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import java.util.Date;
 
 @Data
-public class AnimalError extends RuntimeException{
+public class AnimalError extends RuntimeException {
     private int status;
     private String messages;
     private Date timestamp;

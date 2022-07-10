@@ -12,13 +12,11 @@ import org.springframework.web.bind.annotation.*;
 import ru.artplan.animals.dto.UserRegistrationDto;
 import ru.artplan.animals.entity.User;
 import ru.artplan.animals.exceptions.RegistrationError;
-import ru.artplan.animals.repository.UserRepository;
 import ru.artplan.animals.security.JwtTokenProvider;
 import ru.artplan.animals.services.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.crypto.Data;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
