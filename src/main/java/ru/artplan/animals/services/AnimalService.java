@@ -19,8 +19,12 @@ public class AnimalService {
     private AnimalRepository animalRepository;
     @Autowired
     private KindRepository kindRepository;
+    @Autowired
+    private UserService userService;
 
-    public void addAnimal(AnimalDto dto, User user) throws AnimalError {
+    public void addAnimal(AnimalDto dto, String userName) throws AnimalError {
+        User user = userService.findUser(userName);
+
         Kind kindDb = kindRepository.findByName(dto.getKind()).orElseThrow(() -> new AnimalError("The type of animal is unknown, it was not possible to add a pet"));
         var nik = animalRepository.findByOwnerAndNickName(user, dto.getNickName());
         if (nik.isPresent()) {
@@ -35,13 +39,15 @@ public class AnimalService {
         animalRepository.save(animal);
     }
 
-    public AnimalDto getAnimalToDto(User user, Long animalId) {
+    public AnimalDto getAnimalToDto(String userName, Long animalId) {
+        User user = userService.findUser(userName);
         Animal animal = animalRepository.findByIdAndOwner(animalId, user).orElseThrow(() -> new AnimalError("There is no pet with this number"));
 
         return toDto(animal);
     }
 
-    public List<AnimalDto> getAllAnimalToDto(User user) {
+    public List<AnimalDto> getAllAnimalToDto(String userName) {
+        User user = userService.findUser(userName);
         List<Animal> animals = animalRepository.findAllByOwner(user);
         List<AnimalDto> animalsDto = new ArrayList<>();
         for (Animal animal : animals) {
